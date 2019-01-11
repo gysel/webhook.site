@@ -1,10 +1,3 @@
-import Echo from "laravel-echo"
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'your-pusher-key-here'
-});
-
 angular
     .module("app", [
         'ui.router'
@@ -112,7 +105,7 @@ angular
         //     encrypted: true
         // });
 
-        var socket = io('http://localhost:6001/');
+        //var socket = io('http://localhost:6001/');
 
         // Initialize notify.js
         $.notifyDefaults({
@@ -211,23 +204,23 @@ angular
             $.notify('Request received');
         });
 
-        $scope.pusherSubscribe = (function (token) {
-            console.log('SUBSCRIBED');
-            socket.on('request.created', function (data) {
-                console.log('DATA');
-                console.log(data);
-                socket.emit('my other event', { my: 'data' });
-            });
-            //socket.on(token, function (data) {
-            //    console.log('DATA');
-            //    console.log(data);
-            //    socket.emit('my other event', { my: 'data' });
-            //});
-            socket.on('connection', function(socket){
-                socket.join(token);
-                console.log('JOIN');
-                console.log(socket);
-            });
+//        $scope.pusherSubscribe = (function (token) {
+//            console.log('SUBSCRIBED');
+//            socket.on('request.created', function (data) {
+//                console.log('DATA');
+//                console.log(data);
+//                socket.emit('my other event', { my: 'data' });
+//            });
+//            //socket.on(token, function (data) {
+//            //    console.log('DATA');
+//            //    console.log(data);
+//            //    socket.emit('my other event', { my: 'data' });
+//            //});
+//            socket.on('connection', function(socket){
+//                socket.join(token);
+//                console.log('JOIN');
+//                console.log(socket);
+//            });
 //
             //$scope.pusherChannel = $scope.pusher.subscribe(token);
             //$scope.pusherChannel.bind('request.created', function(data) {
@@ -243,7 +236,7 @@ angular
 
             //    $scope.requests.total = data.total;
             //});
-        });
+//        });
 
         $scope.getToken = (function(tokenId, offset, page) {
             if (!tokenId) {
@@ -256,7 +249,7 @@ angular
                     .then(function(response) {
                         $scope.token = response.data;
                         $scope.getRequests(response.data.uuid, offset, page);
-                        $scope.pusherSubscribe(tokenId);
+                        //$scope.pusherSubscribe(tokenId);
                     }, function(response) {
                         $.notify('Requests not found - invalid ID');
                     });
